@@ -1,2 +1,2 @@
-# notes
-Best backend for keeping notes
+# Notes
+The best backend for keeping notes

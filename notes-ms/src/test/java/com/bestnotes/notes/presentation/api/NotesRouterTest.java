@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import com.bestnotes.notes.domain.entity.Note;
 import com.bestnotes.notes.domain.service.NotesService;
+import com.bestnotes.notes.error.ErrorResponse;
 import com.bestnotes.notes.presentation.dto.command.CreateNoteCommand;
 import com.bestnotes.notes.presentation.dto.command.UpdateNoteCommand;
 import com.bestnotes.notes.presentation.dto.response.NoteResponse;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
+import javax.persistence.EntityNotFoundException;
 import org.junit.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -199,6 +201,66 @@ public class NotesRouterTest extends BaseApiTest {
     }
     return note;
 
+  }
+
+  @Test
+  public void testIllegalArgumentExceptionScenario() {
+    final UUID id = UUID.randomUUID();
+    final UUID userId = UUID.randomUUID();
+    final String errorMessage = "You provided something bad";
+
+    when(notesService.get(id, userId)).thenReturn(Mono.error(new IllegalArgumentException(errorMessage)));
+
+    final ErrorResponse result = webTestClient.get().
+        uri("/users/{userId}/notes/{id}", userId, id)
+        .accept(MediaType.APPLICATION_JSON)
+        .exchange()
+        .expectStatus().isBadRequest()
+        .expectBody(ErrorResponse.class)
+        .returnResult().getResponseBody();
+
+    assertNotNull(result);
+    assertEquals(errorMessage, result.getMessage());
+  }
+
+  @Test
+  public void testEntityNotFoundExceptionScenario() {
+    final UUID id = UUID.randomUUID();
+    final UUID userId = UUID.randomUUID();
+    final String errorMessage = "You provided something bad";
+
+    when(notesService.get(id, userId)).thenReturn(Mono.error(new EntityNotFoundException(errorMessage)));
+
+    final ErrorResponse result = webTestClient.get().
+        uri("/users/{userId}/notes/{id}", userId, id)
+        .accept(MediaType.APPLICATION_JSON)
+        .exchange()
+        .expectStatus().isNotFound()
+        .expectBody(ErrorResponse.class)
+        .returnResult().getResponseBody();
+
+    assertNotNull(result);
+    assertEquals(errorMessage, result.getMessage());
+  }
+
+  @Test
+  public void testUnexpectedExceptionScenario() {
+    final UUID id = UUID.randomUUID();
+    final UUID userId = UUID.randomUUID();
+    final String errorMessage = "You provided something bad";
+
+    when(notesService.get(id, userId)).thenReturn(Mono.error(new Exception(errorMessage)));
+
+    final ErrorResponse result = webTestClient.get().
+        uri("/users/{userId}/notes/{id}", userId, id)
+        .accept(MediaType.APPLICATION_JSON)
+        .exchange()
+        .expectStatus().is5xxServerError()
+        .expectBody(ErrorResponse.class)
+        .returnResult().getResponseBody();
+
+    assertNotNull(result);
+    assertEquals(errorMessage, result.getMessage());
   }
 
 }
