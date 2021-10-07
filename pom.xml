@@ -18,6 +18,7 @@
 
   <modules>
     <module>notes-ms</module>
+    <module>user-ms</module>
   </modules>
 
 </project>

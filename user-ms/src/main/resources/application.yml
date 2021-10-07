@@ -1,0 +1,19 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: notes
+  jpa:
+    database: postgresql
+    show-sql: ${SHOW_SQL:false}
+    generate-ddl: false
+  datasource:
+    url: jdbc:postgresql://${JDBC_URL:localhost}:${JDBC_PORT:5432}/${DATABASE_NAME:users}
+    username: ${JDBC_USERNAME:users}
+    password: ${JDBC_PASSWORD:users}
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0
+    table: migrations
