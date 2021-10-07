@@ -1,0 +1,13 @@
+com/bestnotes/notes/presentation/handler/NotesHandler.class
+com/bestnotes/notes/presentation/dto/response/NoteResponse$NoteResponseBuilder.class
+com/bestnotes/notes/presentation/dto/response/NoteResponse.class
+com/bestnotes/notes/presentation/dto/command/UpdateNoteCommand.class
+com/bestnotes/notes/domain/service/NotesServiceImpl.class
+com/bestnotes/notes/domain/repository/NotesRepository.class
+com/bestnotes/notes/presentation/handler/NotesHandlerImpl.class
+com/bestnotes/notes/Application.class
+com/bestnotes/notes/presentation/dto/command/CreateNoteCommand.class
+com/bestnotes/notes/domain/entity/Note.class
+com/bestnotes/notes/presentation/mapper/NoteMapper.class
+com/bestnotes/notes/presentation/router/NotesRouter.class
+com/bestnotes/notes/domain/service/NotesService.class

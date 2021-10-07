@@ -1,0 +1,5 @@
+com/bestnotes/notes/domain/service/unit/NotesServiceImplTest.class
+com/bestnotes/notes/presentation/api/NotesRouterTest.class
+com/bestnotes/notes/domain/service/integration/NotesServiceIntegrationTest.class
+com/bestnotes/notes/presentation/api/BaseApiTest.class
+com/bestnotes/notes/domain/service/integration/BaseIntegrationTest.class

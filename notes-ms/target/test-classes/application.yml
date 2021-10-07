@@ -1,0 +1,6 @@
+spring:
+  jpa:
+    show-sql: false
+  datasource:
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql:10://localhost/notes
