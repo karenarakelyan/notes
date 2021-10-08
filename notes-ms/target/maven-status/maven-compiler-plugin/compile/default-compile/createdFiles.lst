@@ -10,4 +10,6 @@ com/bestnotes/notes/presentation/dto/command/CreateNoteCommand.class
 com/bestnotes/notes/domain/entity/Note.class
 com/bestnotes/notes/presentation/mapper/NoteMapper.class
 com/bestnotes/notes/presentation/router/NotesRouter.class
+com/bestnotes/notes/error/handler/RestExceptionHandler.class
+com/bestnotes/notes/error/ErrorResponse.class
 com/bestnotes/notes/domain/service/NotesService.class
