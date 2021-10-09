@@ -29,9 +29,8 @@ public class UsersRouterTest extends BaseApiTest {
   public void testGet() {
     final UUID id = UUID.randomUUID();
     final String email = "test@bestnotes.com";
-    final String password = "VeryStrongPass";
 
-    final User user = buildUserObject(id, email, password);
+    final User user = buildUserObject(id, email);
 
     when(userService.get(id)).thenReturn(Mono.just(user));
 
@@ -55,9 +54,8 @@ public class UsersRouterTest extends BaseApiTest {
   public void testGetAll() {
     final UUID id = UUID.randomUUID();
     final String email = "test@bestnotes.com";
-    final String password = "VeryStrongPass";
 
-    final User user = buildUserObject(id, email, password);
+    final User user = buildUserObject(id, email);
 
     when(userService.getAllUsers()).thenReturn(Flux.fromStream(Stream.of(user)));
 
@@ -135,10 +133,9 @@ public class UsersRouterTest extends BaseApiTest {
   }
 
 
-  private User buildUserObject(UUID id, String email, String password) {
+  private User buildUserObject(UUID id, String email) {
     final User user = new User();
     user.setEmail(email);
-    user.setPassword(password);
     try {
       Field idField = user.getClass().getDeclaredField("id");
       idField.setAccessible(true);

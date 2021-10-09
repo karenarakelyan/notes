@@ -21,14 +21,12 @@ public class UserServiceIntegrationTest extends BaseIntegrationTest {
   public void testGet() {
     final User user = new User();
     user.setEmail("test@bestnotes.com");
-    user.setPassword("veryStrongPassword");
     userRepository.save(user);
 
     Mono<User> userMono = userService.get(user.getId());
     User fetchedUser = userMono.block();
     Assertions.assertNotNull(fetchedUser);
     Assertions.assertEquals(user.getEmail(), fetchedUser.getEmail());
-    Assertions.assertEquals(user.getPassword(), fetchedUser.getPassword());
 
   }
 
@@ -36,7 +34,6 @@ public class UserServiceIntegrationTest extends BaseIntegrationTest {
   public void testGetAll() {
     final User user = new User();
     user.setEmail("test@bestnotes.com");
-    user.setPassword("veryStrongPassword");
     userRepository.save(user);
 
     Mono<List<User>> usersMono = userService.getAllUsers()
@@ -45,7 +42,6 @@ public class UserServiceIntegrationTest extends BaseIntegrationTest {
     Assertions.assertNotNull(fetchedUsers);
     Assertions.assertEquals(1, fetchedUsers.size());
     Assertions.assertEquals(user.getEmail(), fetchedUsers.get(0).getEmail());
-    Assertions.assertEquals(user.getPassword(), fetchedUsers.get(0).getPassword());
 
   }
 

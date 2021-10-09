@@ -29,9 +29,6 @@ public class User {
   @Column(name = "email", nullable = false)
   private String email;
 
-  @Column(name = "password", nullable = false)
-  private String password;
-
   @CreationTimestamp
   @Column(name = "created_on", nullable = false)
   private LocalDateTime createdOn;
@@ -50,14 +47,6 @@ public class User {
 
   public void setEmail(final String email) {
     this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(final String password) {
-    this.password = password;
   }
 
   public LocalDateTime getCreatedOn() {
@@ -80,13 +69,21 @@ public class User {
 
     final User user = (User) o;
 
-    return new EqualsBuilder().append(id, user.id).append(email, user.email)
-        .append(password, user.password).append(createdOn, user.createdOn).append(updatedOn, user.updatedOn).isEquals();
+    return new EqualsBuilder()
+        .append(id, user.id)
+        .append(email, user.email)
+        .append(createdOn, user.createdOn)
+        .append(updatedOn, user.updatedOn)
+        .isEquals();
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder(17, 37).append(id).append(email).append(password).append(createdOn).append(updatedOn)
+    return new HashCodeBuilder(17, 37)
+        .append(id)
+        .append(email)
+        .append(createdOn)
+        .append(updatedOn)
         .toHashCode();
   }
 }

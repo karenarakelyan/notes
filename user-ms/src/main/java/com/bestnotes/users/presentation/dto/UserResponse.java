@@ -5,13 +5,17 @@ import java.util.UUID;
 
 public class UserResponse {
 
-  private UUID id;
+  private final UUID id;
+  private final String email;
+  private final LocalDateTime createdOn;
+  private final LocalDateTime updatedOn;
 
-  private String email;
-
-  private LocalDateTime createdOn;
-
-  private LocalDateTime updatedOn;
+  public UserResponse(final UUID id, final String email, final LocalDateTime createdOn, final LocalDateTime updatedOn) {
+    this.id = id;
+    this.email = email;
+    this.createdOn = createdOn;
+    this.updatedOn = updatedOn;
+  }
 
   public UUID getId() {
     return id;
@@ -64,12 +68,7 @@ public class UserResponse {
     }
 
     public UserResponse build() {
-      UserResponse userResponse = new UserResponse();
-      userResponse.createdOn = this.createdOn;
-      userResponse.updatedOn = this.updatedOn;
-      userResponse.id = this.id;
-      userResponse.email = this.email;
-      return userResponse;
+      return new UserResponse(this.id, this.email, this.createdOn, this.updatedOn);
     }
   }
 }

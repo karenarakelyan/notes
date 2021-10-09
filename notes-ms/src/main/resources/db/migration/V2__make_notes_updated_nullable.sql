@@ -1,0 +1,2 @@
+ALTER TABLE notes
+    ALTER COLUMN updated_on DROP NOT NULL;

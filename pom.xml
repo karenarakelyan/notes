@@ -19,6 +19,7 @@
   <modules>
     <module>notes-ms</module>
     <module>user-ms</module>
+    <module>api-gateway</module>
   </modules>
 
 </project>
