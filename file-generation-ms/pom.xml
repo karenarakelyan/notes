@@ -12,17 +12,14 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>user-ms</artifactId>
+  <artifactId>file-generation-ms</artifactId>
 
   <properties>
     <maven.compiler.source>14</maven.compiler.source>
     <maven.compiler.target>14</maven.compiler.target>
-    <java.version>14</java.version>
     <postgres.driver.version>42.2.24</postgres.driver.version>
     <flyway.version>7.15.0</flyway.version>
-    <apache.commons.lang3.vsersion>3.12.0</apache.commons.lang3.vsersion>
-    <reactor.test.version>3.2.3.RELEASE</reactor.test.version>
-    <testcontainers.postgres.vserion>1.16.0</testcontainers.postgres.vserion>
+    <spring-kafka.version>2.7.7</spring-kafka.version>
   </properties>
 
   <dependencies>
@@ -49,38 +46,16 @@
       <version>${flyway.version}</version>
     </dependency>
 
-    <!--Apache commons lang3-->
+    <!--Spring kafka-->
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>${apache.commons.lang3.vsersion}</version>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka</artifactId>
+      <version>${spring-kafka.version}</version>
     </dependency>
-
-    <!--Testing-->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>io.projectreactor</groupId>
-      <artifactId>reactor-test</artifactId>
-      <scope>test</scope>
-      <version>${reactor.test.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>${testcontainers.postgres.vserion}</version>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
 
   <build>
-    <finalName>user-ms</finalName>
+    <finalName>file-generation</finalName>
   </build>
 
 </project>

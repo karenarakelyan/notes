@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import com.bestnotes.notes.domain.entity.Note;
 import com.bestnotes.notes.domain.repository.NotesRepository;
 import com.bestnotes.notes.domain.service.NotesServiceImpl;
+import com.bestnotes.notes.messaging.publisher.NoteMessagePublisher;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,9 @@ public class NotesServiceImplTest {
 
   @Mock
   private NotesRepository notesRepository;
+
+  @Mock
+  private NoteMessagePublisher noteMessagePublisher;
 
   @InjectMocks
   private NotesServiceImpl notesService;

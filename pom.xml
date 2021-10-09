@@ -20,6 +20,7 @@
     <module>notes-ms</module>
     <module>user-ms</module>
     <module>api-gateway</module>
+    <module>file-generation-ms</module>
   </modules>
 
 </project>

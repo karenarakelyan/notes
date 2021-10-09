@@ -1,13 +1,13 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
 
 ms:
   users:
-    path: localhost
-    port: 8081
+    path: ${USERS_MS_PATH:localhost}
+    port: ${USERS_MS_PORT:8081}
   notes:
-    path: localhost
-    port: 8082
+    path: ${NOTES_MS_PATH:localhost}
+    port: ${NOTES_MS_PORT:8082}
 
 spring:
   security:

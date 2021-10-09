@@ -1,0 +1,28 @@
+ms:
+  notes:
+    path: ${NOTES_MS_PATH:localhost}
+    port: ${NOTES_MS_PORT:8082}
+
+
+spring:
+  application:
+    name: file-generation
+  jpa:
+    database: postgresql
+    show-sql: ${SHOW_SQL:false}
+    generate-ddl: false
+  datasource:
+    url: jdbc:postgresql://${JDBC_URL:localhost}:${JDBC_PORT:5432}/${DATABASE_NAME:file}
+    username: ${JDBC_USERNAME:file}
+    password: ${JDBC_PASSWORD:file}
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0
+    table: migrations
+  kafka:
+    consumer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: file-generation

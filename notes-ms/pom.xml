@@ -23,6 +23,7 @@
     <apache.commons.lang3.vsersion>3.12.0</apache.commons.lang3.vsersion>
     <reactor.test.version>3.2.3.RELEASE</reactor.test.version>
     <testcontainers.postgres.vserion>1.16.0</testcontainers.postgres.vserion>
+    <spring-kafka.version>2.7.7</spring-kafka.version>
   </properties>
 
 
@@ -78,6 +79,17 @@
       <scope>test</scope>
     </dependency>
 
+    <!--Spring kafka-->
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka</artifactId>
+      <version>${spring-kafka.version}</version>
+    </dependency>
+
   </dependencies>
+
+  <build>
+    <finalName>notes-ms</finalName>
+  </build>
 
 </project>

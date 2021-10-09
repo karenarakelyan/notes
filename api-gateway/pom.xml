@@ -35,13 +35,15 @@
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-oauth2-resource-server</artifactId>
     </dependency>
-
     <dependency>
       <groupId>com.google.firebase</groupId>
       <artifactId>firebase-admin</artifactId>
       <version>8.1.0</version>
     </dependency>
-
   </dependencies>
+
+  <build>
+    <finalName>api-gateway</finalName>
+  </build>
 
 </project>
