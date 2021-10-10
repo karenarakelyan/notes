@@ -26,3 +26,6 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: file-generation
+
+output:
+  directoryPath: /Users/karenarakelyan/IdeaProjects/disqo-task/file-generation-ms/parquet/
