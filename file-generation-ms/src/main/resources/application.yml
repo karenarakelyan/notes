@@ -13,8 +13,8 @@ spring:
     generate-ddl: false
   datasource:
     url: jdbc:postgresql://${JDBC_URL:localhost}:${JDBC_PORT:5432}/${DATABASE_NAME:file}
-    username: ${JDBC_USERNAME:file}
-    password: ${JDBC_PASSWORD:file}
+    username: ${JDBC_USERNAME:files}
+    password: ${JDBC_PASSWORD:files}
   flyway:
     enabled: true
     baseline-on-migrate: true

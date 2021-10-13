@@ -16,9 +16,3 @@ spring:
         jwt:
           jwk-set-uri: ${JWT_PUBLIC_KEY_URI:https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com}
           issuer-uri: ${ISSUER_URL:https://securetoken.google.com/notes-app-8c8db}
-
-logging:
-  level:
-    org:
-      springframework:
-        security: DEBUG

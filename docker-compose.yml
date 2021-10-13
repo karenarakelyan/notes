@@ -1,0 +1,133 @@
+version: '3'
+services:
+
+  # ---------------------------------- gateway --------------------------------- #
+  gateway:
+    build: api-gateway/.
+    environment:
+      - USERS_MS_PATH=user-service
+      - NOTES_MS_PATH=notes-service
+    ports:
+      - 8080:8080
+
+  # ------------------------------- user-service ------------------------------- #
+  user-service:
+    build:
+      user-ms/.
+    environment:
+      - JDBC_URL=user-postgres
+      - JDBC_PORT=5432
+      - DATABASE_NAME=user
+      - JDBC_USERNAME=user
+      - JDBC_PASSWORD=user
+    depends_on:
+      - user-postgres
+  # ------------------------------- notes-service ------------------------------- #
+  notes-service:
+    build:
+      notes-ms/.
+    environment:
+      - JDBC_URL=notes-postgres
+      - JDBC_PORT=5432
+      - DATABASE_NAME=note
+      - JDBC_USERNAME=note
+      - JDBC_PASSWORD=note
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:19092
+    depends_on:
+      - notes-postgres
+      - kafka
+
+  # ------------------------------- file-generation-service ------------------------------- #
+  file-generation-service:
+    build:
+      file-generation-ms/.
+    environment:
+      - JDBC_URL=file-generation-postgres
+      - JDBC_PORT=5432
+      - DATABASE_NAME=file
+      - JDBC_USERNAME=file
+      - JDBC_PASSWORD=file
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:19092
+    depends_on:
+      - file-generation-postgres
+      - kafka
+
+  # --------------------------------- user-service db --------------------------------- #
+  user-postgres:
+    image: postgres:latest
+    container_name: user_postgres_db_notes
+    volumes:
+      - users-db-data:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_PASSWORD=user
+      - POSTGRES_USER=user
+      - POSTGRES_DB=user
+    restart: unless-stopped
+
+  # --------------------------------- notes-service db --------------------------------- #
+  notes-postgres:
+    image: postgres:latest
+    container_name: notes_postgres_db_notes
+    volumes:
+      - notes-db-data:/var/lib/postgresql/data
+    ports:
+      - 5434:5432
+    environment:
+      - POSTGRES_PASSWORD=note
+      - POSTGRES_USER=note
+      - POSTGRES_DB=note
+    restart: unless-stopped
+
+  # --------------------------------- file-generation-service db --------------------------------- #
+  file-generation-postgres:
+    image: postgres:latest
+    container_name: file_generation_postgres_db_notes
+    volumes:
+      - file-db-data:/var/lib/postgresql/data
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_PASSWORD=file
+      - POSTGRES_USER=file
+      - POSTGRES_DB=file
+    restart: unless-stopped
+
+  # ---------------------------------- zookeeper ---------------------------------- #
+  zoo1:
+    image: zookeeper:3.4.9
+    hostname: zoo1
+    ports:
+      - "2181:2181"
+    environment:
+      - ZOO_MY_ID=1
+      - ZOO_PORT=2181
+      - ZOO_SERVERS=server.1=zoo1:2888:3888
+    volumes:
+      - ./zk-single-kafka-single/zoo1/data:/data
+      - ./zk-single-kafka-single/zoo1/datalog:/datalog
+
+  # ---------------------------------- kafka ---------------------------------- #
+  kafka:
+    image: confluentinc/cp-kafka:5.5.0
+    container_name: notes_kafka
+    ports:
+      - 9092:9092
+    environment:
+      - KAFKA_ADVERTISED_LISTENERS=LISTENER_DOCKER_INTERNAL://kafka:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=LISTENER_DOCKER_INTERNAL
+      - KAFKA_ZOOKEEPER_CONNECT=zoo1:2181
+      - KAFKA_BROKER_ID=1
+      - KAFKA_LOG4J_LOGGERS=kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+    volumes:
+      - ./zk-single-kafka-single/kafka/data:/var/lib/kafka/data
+    depends_on:
+      - zoo1
+
+volumes:
+  users-db-data:
+  notes-db-data:
+  file-db-data:
